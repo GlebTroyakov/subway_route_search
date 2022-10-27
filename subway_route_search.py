@@ -43,5 +43,23 @@ class Link:
 
 
 class LinkedGraph:
-    pass
+    def __init__(self):
+        self._links = []  # example of Link
+        self._vertex = []  # example of Vertex
 
+    def add_vertex(self, v):
+        if v not in self._vertex:
+            self._vertex.append(v)
+
+    def add_link(self, link):
+        if link not in self._links:
+            self._links.append(link)
+
+        if link._v1 not in self._vertex:
+            self._vertex.append(link._v1)
+
+        if link._v2 not in self._vertex:
+            self._vertex.append(link._v2)
+
+        link._v1.get_link(link)  # append link in vertex
+        link._v2.get_link(link)
