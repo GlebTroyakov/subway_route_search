@@ -147,7 +147,6 @@ class LinkedGraph:
                         if (j.v1.name == res_P[i] and j.v2.name == res_P[i + 1]) or \
                                 (j.v2.name == res_P[i] and j.v1.name == res_P[i + 1]):
                             lines_path.append(j)
-                res_P = [int(i) if i.isdigit() else i for i in res_P]
                 return (res_P, lines_path)
 
 
@@ -186,7 +185,7 @@ if __name__ == '__main__':
     assert sum([i.dist for i in path_v1_to_v4_map1[1]]), 'Неверная сумма весов маршрута невзвешенного графта для map1'
 
     map2 = LinkedGraph()
-    v1 = Station('1')
+    v1 = Station(1)
     v2 = Station('2')
     v3 = Station('three')
     v4 = Station('4')
@@ -197,5 +196,8 @@ if __name__ == '__main__':
     assert len(map2._vertex) == 4, 'Неверное число вершин для map2'
     assert len(map2._links) == 4, 'Неверное число связей для map2'
     path_v1_to_v4_map2 = map2.find_path(v1, v4)
-    assert path_v1_to_v4_map2[0] == [1, 2, 'three', 4], 'Неверный маршрут для невзвешеноого графта для map2'
+    assert path_v1_to_v4_map2[0] == [1, '2', 'three', '4'], 'Неверный маршрут для невзвешеноого графта для map2'
     assert sum([i.dist for i in path_v1_to_v4_map2[1]]) == 6, 'Неверная сумма весов маршрута невзвешенного графта для map2'
+    path_v2_to_v4_map2 = map2.find_path(v2, v4)  # проверка из другой точки
+    assert path_v2_to_v4_map2[0] == ['2', 'three', '4'], 'Неверный маршрут для невзвешеноого графта для map2'
+    assert sum([i.dist for i in path_v2_to_v4_map2[1]]) == 5, 'Неверная сумма весов маршрута невзвешенного графта для map2'
